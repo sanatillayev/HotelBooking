@@ -6,9 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Router",
     platforms: [.iOS(.v16)],
-    products: [
-        .library( name: "Router", targets: ["Router"]),
-    ],
+    products: [.library( name: "Router", targets: ["Router"]),],
     dependencies: [
         .package(path: "CoreModels")
     ],
