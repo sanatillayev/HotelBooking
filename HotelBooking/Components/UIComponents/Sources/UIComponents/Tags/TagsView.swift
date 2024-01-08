@@ -97,21 +97,3 @@ public struct TagsView<Content, Data, ID>: View
         }
     }
 }
-
-
-struct TagsView_Previews: PreviewProvider {
-    
-    static var peculiarities = ["Бесплатный Wifi на всей территории отеля", "1 км до пляжа", "Бесплатный фитнес-клуб", "About vitamins", "20 км до аэропорта"]
-    
-    static var previews: some View {
-        TagsView(
-            data: peculiarities,
-            id: \.self,
-            verticalSpacing: 8,
-            horizontalSpacing: 8
-        ) { text in
-            InfoTag(text: text)
-        }
-        .frame(height: 30)
-    }
-}
