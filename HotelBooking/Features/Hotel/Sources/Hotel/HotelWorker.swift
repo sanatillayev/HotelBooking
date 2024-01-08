@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Combine
-import CoreModels
+import Models
 
 protocol AnyHotelWorker {
     func fetchHotelData() -> AnyPublisher<Hotel, Error>

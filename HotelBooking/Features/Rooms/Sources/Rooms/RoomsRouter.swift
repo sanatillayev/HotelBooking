@@ -8,7 +8,6 @@
 import SwiftUI
 import Router
 import Booking
-import CoreModels
 
 protocol AnyRoomsRouter{
     func closeView()

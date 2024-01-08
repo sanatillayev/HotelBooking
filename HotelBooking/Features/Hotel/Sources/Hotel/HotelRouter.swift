@@ -9,7 +9,7 @@ import SwiftUI
 import Router
 import Rooms
 import Booking
-import CoreModels
+import Models
 
 protocol AnyHotelRouter{
     

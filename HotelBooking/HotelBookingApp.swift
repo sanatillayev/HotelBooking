@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Hotel
-import CoreModels
+import Models
 import Rooms
 import Booking
 

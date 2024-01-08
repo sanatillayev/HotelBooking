@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CoreModels
+import Models
 import Combine
 
 final class RoomsViewModel: ObservableObject {

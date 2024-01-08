@@ -8,7 +8,7 @@ let package = Package(
     platforms: [.iOS(.v16)],
     products: [.library(name: "Booking",targets: ["Booking"]),],
     dependencies: [
-        .package(path: "CoreModels"),
+        .package(path: "Models"),
         .package(path: "Router"),
         .package(path: "UIComponents"),
         .package(path: "MadePayment")
@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "Booking",
             dependencies: [
-                "CoreModels",
+                "Models",
                 "Router",
                 "UIComponents",
                 "MadePayment"

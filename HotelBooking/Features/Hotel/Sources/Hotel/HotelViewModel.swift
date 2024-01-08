@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Combine
-import CoreModels
+import Models
 
 
 final class HotelViewModel: ObservableObject {

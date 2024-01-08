@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Router
-import CoreModels
+import Models
 import Combine
 
 protocol AnyBookingWorker {

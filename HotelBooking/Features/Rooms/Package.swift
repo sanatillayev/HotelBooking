@@ -9,7 +9,7 @@ let package = Package(
     products: [.library(name: "Rooms",targets: ["Rooms"]),],
     dependencies: [
         .package(path: "Booking"),
-        .package(path: "CoreModels"),
+        .package(path: "Models"),
         .package(path: "Router"),
         .package(path: "UIComponents")
     ],
@@ -18,7 +18,7 @@ let package = Package(
             name: "Rooms",
             dependencies: [
                 "Booking",
-                "CoreModels",
+                "Models",
                 "Router",
                 "UIComponents"
             ]

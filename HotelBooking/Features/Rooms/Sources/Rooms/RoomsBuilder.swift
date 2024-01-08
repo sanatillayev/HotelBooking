@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CoreModels
+import Models
 
 public class RoomsBuilder {
     public static func createRoomsListScene (

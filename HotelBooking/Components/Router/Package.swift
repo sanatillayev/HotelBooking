@@ -8,12 +8,12 @@ let package = Package(
     platforms: [.iOS(.v16)],
     products: [.library( name: "Router", targets: ["Router"]),],
     dependencies: [
-        .package(path: "CoreModels")
+        .package(path: "Models")
     ],
     targets: [
         .target( name: "Router",
                  dependencies: [
-                    "CoreModels"
+                    "Models"
                  ]
                ),
         .testTarget(name: "RouterTests",dependencies: ["Router"]),

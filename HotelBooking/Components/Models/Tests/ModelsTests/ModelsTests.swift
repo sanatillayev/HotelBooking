@@ -1,7 +1,7 @@
 import XCTest
-@testable import CoreModels
+@testable import Models
 
-final class CoreModelsTests: XCTestCase {
+final class ModelsTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest

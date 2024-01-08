@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		043A97D92B4C17AC00592311 /* CoreModels in Frameworks */ = {isa = PBXBuildFile; productRef = 043A97D82B4C17AC00592311 /* CoreModels */; };
+		04203A052B4C35F9004BC2A9 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 04203A042B4C35F9004BC2A9 /* Models */; };
 		043A97DD2B4C17F400592311 /* Router in Frameworks */ = {isa = PBXBuildFile; productRef = 043A97DC2B4C17F400592311 /* Router */; };
 		043A97E12B4C184300592311 /* Booking in Frameworks */ = {isa = PBXBuildFile; productRef = 043A97E02B4C184300592311 /* Booking */; };
 		043A97E32B4C184F00592311 /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 043A97E22B4C184F00592311 /* UIComponents */; };
@@ -15,7 +15,6 @@
 		043A97EB2B4C1E3900592311 /* Hotel in Frameworks */ = {isa = PBXBuildFile; productRef = 043A97EA2B4C1E3900592311 /* Hotel */; };
 		043A97ED2B4C1EEE00592311 /* MadePayment in Frameworks */ = {isa = PBXBuildFile; productRef = 043A97EC2B4C1EEE00592311 /* MadePayment */; };
 		04734EBF2B4BFFDD00885BDD /* HotelBookingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04734EBE2B4BFFDD00885BDD /* HotelBookingApp.swift */; };
-		04734EC12B4BFFDD00885BDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04734EC02B4BFFDD00885BDD /* ContentView.swift */; };
 		04734EC32B4BFFDF00885BDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04734EC22B4BFFDF00885BDD /* Assets.xcassets */; };
 		04734EC62B4BFFDF00885BDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04734EC52B4BFFDF00885BDD /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -23,14 +22,13 @@
 /* Begin PBXFileReference section */
 		043A97AC2B4C037300592311 /* Router */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Router; sourceTree = "<group>"; };
 		043A97AD2B4C037300592311 /* UIComponents */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIComponents; sourceTree = "<group>"; };
-		043A97AE2B4C03A000592311 /* CoreModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CoreModels; path = ../../../CoreModels; sourceTree = "<group>"; };
 		043A97CF2B4C151200592311 /* Rooms */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Rooms; sourceTree = "<group>"; };
 		043A97D02B4C151200592311 /* MadePayment */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MadePayment; sourceTree = "<group>"; };
 		043A97D12B4C151200592311 /* Hotel */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Hotel; sourceTree = "<group>"; };
 		043A97D22B4C151200592311 /* Booking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Booking; sourceTree = "<group>"; };
+		044C078A2B4C3350004211B0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Models; sourceTree = "<group>"; };
 		04734EBB2B4BFFDD00885BDD /* HotelBooking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotelBooking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04734EBE2B4BFFDD00885BDD /* HotelBookingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelBookingApp.swift; sourceTree = "<group>"; };
-		04734EC02B4BFFDD00885BDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		04734EC22B4BFFDF00885BDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04734EC52B4BFFDF00885BDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -43,9 +41,9 @@
 				043A97E32B4C184F00592311 /* UIComponents in Frameworks */,
 				043A97ED2B4C1EEE00592311 /* MadePayment in Frameworks */,
 				043A97EB2B4C1E3900592311 /* Hotel in Frameworks */,
-				043A97D92B4C17AC00592311 /* CoreModels in Frameworks */,
 				043A97DD2B4C17F400592311 /* Router in Frameworks */,
 				043A97E92B4C1B5400592311 /* Rooms in Frameworks */,
+				04203A052B4C35F9004BC2A9 /* Models in Frameworks */,
 				043A97E12B4C184300592311 /* Booking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +54,7 @@
 		043A97AA2B4C035F00592311 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				043A97AE2B4C03A000592311 /* CoreModels */,
+				044C078A2B4C3350004211B0 /* Models */,
 				043A97AC2B4C037300592311 /* Router */,
 				043A97AD2B4C037300592311 /* UIComponents */,
 			);
@@ -104,7 +102,6 @@
 				043A97CE2B4C14B300592311 /* Features */,
 				043A97AA2B4C035F00592311 /* Components */,
 				04734EBE2B4BFFDD00885BDD /* HotelBookingApp.swift */,
-				04734EC02B4BFFDD00885BDD /* ContentView.swift */,
 				04734EC22B4BFFDF00885BDD /* Assets.xcassets */,
 				04734EC42B4BFFDF00885BDD /* Preview Content */,
 			);
@@ -136,13 +133,13 @@
 			);
 			name = HotelBooking;
 			packageProductDependencies = (
-				043A97D82B4C17AC00592311 /* CoreModels */,
 				043A97DC2B4C17F400592311 /* Router */,
 				043A97E02B4C184300592311 /* Booking */,
 				043A97E22B4C184F00592311 /* UIComponents */,
 				043A97E82B4C1B5400592311 /* Rooms */,
 				043A97EA2B4C1E3900592311 /* Hotel */,
 				043A97EC2B4C1EEE00592311 /* MadePayment */,
+				04203A042B4C35F9004BC2A9 /* Models */,
 			);
 			productName = HotelBooking;
 			productReference = 04734EBB2B4BFFDD00885BDD /* HotelBooking.app */;
@@ -173,8 +170,6 @@
 			);
 			mainGroup = 04734EB22B4BFFDC00885BDD;
 			packageReferences = (
-				043A97B32B4C06BA00592311 /* XCLocalSwiftPackageReference "../Hotel" */,
-				043A97D72B4C17AC00592311 /* XCLocalSwiftPackageReference "HotelBooking/Components/CoreModels" */,
 			);
 			productRefGroup = 04734EBC2B4BFFDD00885BDD /* Products */;
 			projectDirPath = "";
@@ -202,7 +197,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04734EC12B4BFFDD00885BDD /* ContentView.swift in Sources */,
 				04734EBF2B4BFFDD00885BDD /* HotelBookingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,8 +337,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -352,9 +345,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanatillayev.HotelBooking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -372,8 +368,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,9 +376,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanatillayev.HotelBooking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -410,21 +408,11 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		043A97B32B4C06BA00592311 /* XCLocalSwiftPackageReference "../Hotel" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../Hotel;
-		};
-		043A97D72B4C17AC00592311 /* XCLocalSwiftPackageReference "HotelBooking/Components/CoreModels" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = HotelBooking/Components/CoreModels;
-		};
-/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		043A97D82B4C17AC00592311 /* CoreModels */ = {
+		04203A042B4C35F9004BC2A9 /* Models */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = CoreModels;
+			productName = Models;
 		};
 		043A97DC2B4C17F400592311 /* Router */ = {
 			isa = XCSwiftPackageProductDependency;
