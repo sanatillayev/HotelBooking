@@ -7,7 +7,6 @@
 
 import Router
 import SwiftUI
-//import Hotel
 
 
 protocol AnyMadePaymentRouter{
@@ -27,12 +26,6 @@ final class MadePaymentRouter: Router, AnyMadePaymentRouter {
     func closeView() {
         self.dismiss()
         onDissmiss()
-    }
-    
-    func showHotelView() {
-//        let view = HotelBuilder.createHotelScene(presentationType: isNavigating)
-//        
-//        navigateTo(view)
     }
     
     

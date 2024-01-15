@@ -35,3 +35,22 @@ public struct Tour: Codable {
         case serviceCharge = "service_charge"
     }
 }
+
+// MARK: - Tourist
+public struct Tourist {
+    public var name: String?
+    public var surname: String?
+    public var birthday: String?
+    public var citizenship: String?
+    public var idNumber: String?
+    public var expiryDate: String?
+    
+    public init(name: String? = nil, surname: String? = nil, birthday: String? = nil, citizenship: String? = nil, idNumber: String? = nil, expiryDate: String? = nil) {
+        self.name = name
+        self.surname = surname
+        self.birthday = birthday
+        self.citizenship = citizenship
+        self.idNumber = idNumber
+        self.expiryDate = expiryDate
+    }
+}

@@ -120,8 +120,6 @@ extension HotelView {
         .cornerRadius(Constants.cornerRadius)
     }
     
-    
-    
     private var mainTextInfoView: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let hotel = viewModel.state.hotel {

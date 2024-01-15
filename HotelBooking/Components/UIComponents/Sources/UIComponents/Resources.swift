@@ -43,6 +43,7 @@ public extension String {
         public static let icAbout = "icAbout"
         public static let icIncluded = "icIncluded"
         public static let icNotIncluded = "icNotIncluded"
+        public static let icDone = "icDone"
 
     }
 }

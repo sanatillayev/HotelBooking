@@ -4,13 +4,6 @@
 //
 //  Created by Bilol Sanatillayev on 06/01/24.
 //
-
-import SwiftUI
-
-
-
-
-
 import SwiftUI
 
 private enum Constants {

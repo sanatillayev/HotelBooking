@@ -22,17 +22,7 @@ final class RoomsRouter: Router, AnyRoomsRouter {
     }
     
     // MARK: - Public Methods
-    
-//    func showTourInfoView(onDismiss: @escaping () -> Void) {
-//        let view = BookingBuilder.createRoomsListScene(presentationType: self.isNavigating, onDismiss: onDismiss)
-//        self.navigateTo(view)
-//    }
-    
-//    func showMadePayment(onDismiss: @escaping () -> Void) {
-//        let view = MadePaymentBuilder.createMadePaymentScene(presentationType: isNavigating, onDismiss: onDismiss)
-//        self.navigateTo(view)
-//    }
-    
+        
     func showBookingView() {
         let view = BookingBuilder.createHotelScene(presentationType: self.isNavigating) {
             self.closeView()

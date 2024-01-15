@@ -60,9 +60,6 @@ public struct RoomsView: View {
         router.showBookingView()
     }
     
-//    private func showMadePaymentView() {
-//        router.showMadePayment()
-//    }
     
     private func closeView() {
         router.closeView()
@@ -148,9 +145,6 @@ extension RoomsView {
             
             ButtonView(title: Constants.Button.title) {
                 showBookingView()
-                // TODO: add action to go booking view
-                
-//                showMadePaymentView()
             }
             .padding(.horizontal, -Constants.hOffset)
 

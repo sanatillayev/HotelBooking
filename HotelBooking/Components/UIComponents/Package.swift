@@ -10,9 +10,15 @@ let package = Package(
     products: [
         .library(name: "UIComponents",targets: ["UIComponents"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "Models")
+    ],
     targets: [
-        .target( name: "UIComponents"),
+        .target( name: "UIComponents",
+                 dependencies: [
+                    "Models"
+                 ]
+               ),
         .testTarget(name: "UIComponentsTests", dependencies: ["UIComponents"]),
     ]
 )
