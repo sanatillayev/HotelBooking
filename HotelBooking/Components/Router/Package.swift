@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Router",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v17)],
     products: [.library( name: "Router", targets: ["Router"]),],
     dependencies: [
         .package(path: "Models")

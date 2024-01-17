@@ -115,7 +115,8 @@ extension HotelView {
                 }
             }
         }
-        .tabViewStyle(.page(indexDisplayMode: .always))
+        .tabViewStyle(.page)
+        .indexViewStyle(.page(backgroundDisplayMode: .always))
         .frame(height: Constants.Image.height)
         .cornerRadius(Constants.cornerRadius)
     }

@@ -76,6 +76,10 @@ public struct BookingView: View {
     private func showMadePaymentView() {
         router.showMadePayment()
     }
+    private var isButtonDisable: Bool {
+        viewModel.state.phoneNumber.isEmpty || viewModel.state.email.isEmpty
+        // TODO: other properties
+    }
     
     // MARK: - Life Cycle
     public var body: some View {
@@ -99,6 +103,12 @@ public struct BookingView: View {
         .safeAreaInset(edge: .bottom, content: { buttonView } )
         .toolbar(.hidden, for: .navigationBar)
         .scrollIndicators(.hidden)
+        .scrollDismissesKeyboard(.immediately)
+        .overlay(content: {
+            if viewModel.state.isLoading {
+                LoadingView()
+            }
+        })
     }
 }
 
@@ -109,6 +119,7 @@ extension BookingView {
             closeView()
         }
     }
+    @ViewBuilder
     private var mainTextInfoView: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let tour = viewModel.state.tour {
@@ -124,6 +135,8 @@ extension BookingView {
         .background(Color.white)
         .cornerRadius(15.0)
     }
+    
+    @ViewBuilder
     private var tourInfoView: some View {
         VStack(alignment: .leading, spacing: Constants.spacing) {
             if let tour = viewModel.state.tour {
@@ -201,27 +214,90 @@ extension BookingView {
             Text("Информация о покупателе")
                 .font(Constants.MainInfo.fontName)
             FieldView(title: "Hомер телефона", text: phoneNumberBinding)
-            FieldView(title: "Почта", 
+                .keyboardType(.phonePad)
+            FieldView(title: "Почта",
                       text: emailBinding,
                       caption: "Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту")
+            .keyboardType(.emailAddress)
         }
         .padding(.all, 16)
         .background(Color.white)
         .cornerRadius(12)
     }
+    @ViewBuilder
     private var allTouristInfoView: some View {
         VStack(alignment: .center, spacing: 8){
-            ForEach(viewModel.state.tourists.indices, id: \.self) { index in
-                touristInfoView(for: index)
+            firstTouristInfoView
+            if viewModel.state.tourists.count >= 2 {
+                secondTouristInfoView
+            }
+            if viewModel.state.tourists.count >= 3 {
+                thirdTouristInfoView
+            }
+            if viewModel.state.tourists.count >= 4 {
+                fourthTouristInfoView
+            }
+            if viewModel.state.tourists.count >= 5 {
+                fifthTouristInfoView
             }
         }
     }
-    @ViewBuilder
-    private func touristInfoView(for index: Int) -> some View {
-        if let binding = viewModel.state.touristBindings[index] {
-            TouristInfoView(title: "\(index+1)-турист", tourist: binding)
-        }
+
+    private var firstTouristInfoView: some View {
+        TouristInfoView(isShown: true,
+                        title: .first,
+                        name: nameBinding,
+                        surname: surnameBinding,
+                        birthday: birthdayBinding,
+                        citizenship: citizenshipBinding,
+                        idNumber: idNumberBinding,
+                        expiryDate: expiryDateBinding)
     }
+    
+    private var secondTouristInfoView: some View {
+        TouristInfoView(isShown: false,
+                        title: .second,
+                        name: secondNameBinding,
+                        surname: secondSurnameBinding,
+                        birthday: secondBirthdayBinding,
+                        citizenship: secondCitizenshipBinding,
+                        idNumber: secondIdNumberBinding,
+                        expiryDate: secondExpiryDateBinding)
+    }
+    private var thirdTouristInfoView: some View {
+        TouristInfoView(isShown: false,
+                        title: .third,
+                        name: thirdNameBinding,
+                        surname: thirdSurnameBinding,
+                        birthday: thirdBirthdayBinding,
+                        citizenship: thirdCitizenshipBinding,
+                        idNumber: thirdIdNumberBinding,
+                        expiryDate: thirdExpiryDateBinding)
+    }
+
+    private var fourthTouristInfoView: some View {
+        TouristInfoView(isShown: false,
+                        title: .fourth,
+                        name: fourthNameBinding,
+                        surname: fourthSurnameBinding,
+                        birthday: fourthBirthdayBinding,
+                        citizenship: fourthCitizenshipBinding,
+                        idNumber: fourthIdNumberBinding,
+                        expiryDate: fourthExpiryDateBinding)
+    }
+
+    private var fifthTouristInfoView: some View {
+        TouristInfoView(isShown: false,
+                        title: .fifth,
+                        name: fifthNameBinding,
+                        surname: fifthSurnameBinding,
+                        birthday: fifthBirthdayBinding,
+                        citizenship: fifthCitizenshipBinding,
+                        idNumber: fifthIdNumberBinding,
+                        expiryDate: fifthExpiryDateBinding)
+    }
+
+    
     private var addTouristButtonView: some View {
         HStack(spacing: .zero){
             Text("Добавить туриста")
@@ -295,26 +371,307 @@ extension BookingView {
         .onAppear { viewModel.action.send(.findTotalPrice) }
     }
     private var buttonView: some View {
-        ButtonView(title: "Оплатить \( formatPrice(viewModel.state.totalPrice) ) ₽",
-                   showDivider: true) {
+        ButtonView(title: "Оплатить \(formatPrice(viewModel.state.totalPrice)) ₽",
+                   showDivider: true, 
+                   isButtonDisabled: viewModel.state.isSuperButtonDisabled) {
             showMadePaymentView()
         }
+        .disabled(viewModel.state.isSuperButtonDisabled)
+                   
     }
 }
 
 extension BookingView {
-    var phoneNumberBinding: Binding<String> {
+    private var phoneNumberBinding: Binding<String> {
         Binding {
             viewModel.state.phoneNumber
         } set: { newValue in
             viewModel.action.send(.setPhoneNumber(newValue))
         }
     }
-    var emailBinding: Binding<String> {
+    private var emailBinding: Binding<String> {
         Binding {
             viewModel.state.email
         } set: { newValue in
             viewModel.action.send(.setEmail(newValue))
         }
     }
+    
+    // MARK: - First Tourist bindings
+    private var nameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.firstTourist.name ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setName(newValue))
+            }
+        )
+    }
+    
+    private var surnameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.firstTourist.surname ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setSurname(newValue))
+            }
+        )
+    }
+    
+    private var birthdayBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.firstTourist.birthday ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setBirthdate(newValue))
+            }
+        )
+    }
+    
+    private var citizenshipBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.firstTourist.citizenship ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setCitizenship(newValue))
+            }
+        )
+    }
+    
+    private var idNumberBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.firstTourist.idNumber ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setIdNumber(newValue))
+            }
+        )
+    }
+    
+    private var expiryDateBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.firstTourist.expiryDate ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setExpiryDate(newValue))
+            }
+        )
+    }
+    
+    // MARK: - Second Tourist bindings
+
+    private var secondNameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.secondTourist.name ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setSecondName(newValue))
+            }
+        )
+    }
+
+    private var secondSurnameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.secondTourist.surname ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setSecondSurname(newValue))
+            }
+        )
+    }
+
+    private var secondBirthdayBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.secondTourist.birthday ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setSecondBirthdate(newValue))
+            }
+        )
+    }
+
+    private var secondCitizenshipBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.secondTourist.citizenship ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setSecondCitizenship(newValue))
+            }
+        )
+    }
+
+    private var secondIdNumberBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.secondTourist.idNumber ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setSecondIdNumber(newValue))
+            }
+        )
+    }
+
+    private var secondExpiryDateBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.secondTourist.expiryDate ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setSecondExpiryDate(newValue))
+            }
+        )
+    }
+
+    // MARK: - Third Tourist bindings
+
+    private var thirdNameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.thirdTourist.name ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setThirdName(newValue))
+            }
+        )
+    }
+
+    private var thirdSurnameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.thirdTourist.surname ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setThirdSurname(newValue))
+            }
+        )
+    }
+
+    private var thirdBirthdayBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.thirdTourist.birthday ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setThirdBirthdate(newValue))
+            }
+        )
+    }
+
+    private var thirdCitizenshipBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.thirdTourist.citizenship ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setThirdCitizenship(newValue))
+            }
+        )
+    }
+
+    private var thirdIdNumberBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.thirdTourist.idNumber ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setThirdIdNumber(newValue))
+            }
+        )
+    }
+
+    private var thirdExpiryDateBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.thirdTourist.expiryDate ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setThirdExpiryDate(newValue))
+            }
+        )
+    }
+    // MARK: - Fourth Tourist bindings
+
+    private var fourthNameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fourthTourist.name ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFourthName(newValue))
+            }
+        )
+    }
+
+    private var fourthSurnameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fourthTourist.surname ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFourthSurname(newValue))
+            }
+        )
+    }
+
+    private var fourthBirthdayBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fourthTourist.birthday ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFourthBirthdate(newValue))
+            }
+        )
+    }
+
+    private var fourthCitizenshipBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fourthTourist.citizenship ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFourthCitizenship(newValue))
+            }
+        )
+    }
+
+    private var fourthIdNumberBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fourthTourist.idNumber ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFourthIdNumber(newValue))
+            }
+        )
+    }
+
+    private var fourthExpiryDateBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fourthTourist.expiryDate ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFourthExpiryDate(newValue))
+            }
+        )
+    }
+    // MARK: - Fifth Tourist bindings
+
+    private var fifthNameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fifthTourist.name ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFifthName(newValue))
+            }
+        )
+    }
+
+    private var fifthSurnameBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fifthTourist.surname ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFifthSurname(newValue))
+            }
+        )
+    }
+
+    private var fifthBirthdayBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fifthTourist.birthday ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFifthBirthdate(newValue))
+            }
+        )
+    }
+
+    private var fifthCitizenshipBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fifthTourist.citizenship ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFifthCitizenship(newValue))
+            }
+        )
+    }
+
+    private var fifthIdNumberBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fifthTourist.idNumber ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFifthIdNumber(newValue))
+            }
+        )
+    }
+
+    private var fifthExpiryDateBinding: Binding<String> {
+        Binding(
+            get: { viewModel.state.fifthTourist.expiryDate ?? "" },
+            set: { newValue in
+                viewModel.action.send(.setFifthExpiryDate(newValue))
+            }
+        )
+    }
+
 }

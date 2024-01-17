@@ -25,19 +25,17 @@ public struct FieldView<Trailing>: View where Trailing: View {
     private let trailingContent: (() -> Trailing)?
     @Binding var text: String
     @State var isTapped: Bool = false
-    private var isDateField: Bool
+    @State var isEmptyField: Bool = false
 
     public init(
         title: String,
         text: Binding<String>,
-        caption: String? = nil,
-        isDateField: Bool = false
+        caption: String? = nil
     ) where Trailing == EmptyView {
         self.title = title
         self._text = text
         self.caption = caption
         self.trailingContent = nil
-        self.isDateField = isDateField
     }
     
     public init(
@@ -45,13 +43,12 @@ public struct FieldView<Trailing>: View where Trailing: View {
         text: Binding<String>,
         placeholder: String = "",
         caption: String? = nil,
-        isDateField: Bool = false,
+        isNumberField: Bool = false,
         @ViewBuilder trailingContent: @escaping () -> Trailing
     ) {
         self.title = title
         self._text = text
         self.caption = caption
-        self.isDateField = isDateField
         self.trailingContent = trailingContent
     }
     
@@ -63,7 +60,8 @@ public struct FieldView<Trailing>: View where Trailing: View {
                 .padding(.horizontal, Constants.hOffset)
                 .padding(.bottom, isTapped ? Constants.textVPadding : 0 )
                 .frame(height: Constants.fieldHeight)
-                .background(Color.AppColors.clBackgroundPrimary)
+                .background(isEmptyField ? Color.red.opacity(0.15) :
+                                Color.AppColors.clBackgroundPrimary)
                 .cornerRadius(Constants.cornerRadius)
 
             if let caption {
@@ -72,23 +70,24 @@ public struct FieldView<Trailing>: View where Trailing: View {
                     .foregroundColor(Color.AppColors.clLabelSecondary)
             }
         }
+        .onChange(of: text) {
+            if !text.isEmpty {
+                isEmptyField = false
+            }
+        }
     }
     
     var textField: some View {
         TextField("", text: $text, onEditingChanged: { isEditing in
             if isEditing {
                 withAnimation(.easeIn) {
-                    if !text.isEmpty{
-                        print("text is not Empty")
-                    }
-                    print("text is Editing")
-
                     isTapped = true
                 }
             } else {
                 withAnimation(.easeOut) {
                     if text.isEmpty {
                         isTapped = false
+                        isEmptyField = true
                     }
                 }
             }
@@ -98,37 +97,16 @@ public struct FieldView<Trailing>: View where Trailing: View {
             Text(title)
                 .font(isTapped ? Constants.titleFont : Constants.fieldFont)
                 .offset(x: 0, y: isTapped ? -4 : 0)
-                .foregroundColor(Color.AppColors.clLabelTertiary)
+                .foregroundColor(isEmptyField ?
+                                 Color.red.opacity(0.5) :
+                                 Color.AppColors.clLabelTertiary)
         })
-        .onReceive(Just(text)) { newValue in
-            if isDateField {
-                text = formatDateString(newValue)
+        .onSubmit {
+            if text.isEmpty {
+                isEmptyField = true
             }
         }
-        .keyboardType(isDateField ? .numberPad : .alphabet)
     }
     
-    private func formatDateString(_ dateString: String) -> String {
-        var formattedString = ""
-        for (index, char) in dateString.enumerated() {
-            switch index {
-            case 2, 5:
-                formattedString += "/\(char)"
-            default:
-                formattedString.append(char)
-            }
-        }
-        return formattedString
-    }
-    
-    private var limitedTextBinding: Binding<String> {
-        Binding {
-            self.text
-        } set: { newText in
-            if newText.count <= textLimit {
-                self.text = newText
-            }
-        }
-    }
     
 }

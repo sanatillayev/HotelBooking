@@ -26,16 +26,25 @@ private enum Constants {
 
 public struct TouristInfoView: View {
     @State var isShown: Bool
-    var title: String
-    @Binding var tourist: Tourist
+    var title: TouristNumber
+    @Binding var name: String
+    @Binding var surname: String
+    @Binding var birthday: String
+    @Binding var citizenship: String
+    @Binding var idNumber: String
+    @Binding var expiryDate: String
 
+    @FocusState private var focusedField: Field?
     
-    public init(title: String,
-                isShown: Bool = true,
-                tourist: Binding<Tourist>) {
-            self.title = title
-            self._isShown = State(initialValue: isShown)
-            self._tourist = tourist
+    init(isShown: Bool = false, title: TouristNumber, name: Binding<String>, surname: Binding<String>, birthday: Binding<String>, citizenship: Binding<String>, idNumber: Binding<String>, expiryDate: Binding<String>) {
+        self.isShown = isShown
+        self.title = title
+        self._name = name
+        self._surname = surname
+        self._birthday = birthday
+        self._citizenship = citizenship
+        self._idNumber = idNumber
+        self._expiryDate = expiryDate
     }
     
     public var body: some View {
@@ -43,7 +52,7 @@ public struct TouristInfoView: View {
             contentView
         } label: {
             HStack(spacing: .zero) {
-                Text(title)
+                Text(title.rawValue)
                     .font(Constants.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(Color.AppColors.clLabelPrimary)
@@ -65,60 +74,78 @@ public struct TouristInfoView: View {
         .cornerRadius(12)
     }
     
-    private var nameBinding: Binding<String> {
-        Binding(
-            get: { tourist.name ?? "" },
-            set: { tourist.name = $0 }
-        )
-    }
-    
-    private var surnameBinding: Binding<String> {
-        Binding(
-            get: { tourist.surname ?? "" },
-            set: { tourist.surname = $0 }
-        )
-    }
-    
-    private var birthdayBinding: Binding<String> {
-        Binding(
-            get: { tourist.birthday ?? "" },
-            set: { tourist.birthday = $0 }
-        )
-    }
-    
-    private var citizenshipBinding: Binding<String> {
-        Binding(
-            get: { tourist.citizenship ?? "" },
-            set: { tourist.citizenship = $0 }
-        )
-    }
-    
-    private var idNumberBinding: Binding<String> {
-        Binding(
-            get: { tourist.idNumber ?? "" },
-            set: { tourist.idNumber = $0 }
-        )
-    }
-    
-    private var expiryDateBinding: Binding<String> {
-        Binding(
-            get: { tourist.expiryDate ?? "" },
-            set: { tourist.expiryDate = $0 }
-        )
-    }
-    
     @ViewBuilder
     private var contentView: some View {
         VStack(alignment: .leading, spacing: 8) {
-            FieldView(title: Constants.Text.name, text: nameBinding)
-            FieldView(title: Constants.Text.surname, text: surnameBinding)
-            FieldView(title: Constants.Text.birthDate, text: birthdayBinding, isDateField: true)
-            FieldView(title: Constants.Text.citizenship, text: citizenshipBinding)
-            FieldView(title: Constants.Text.idNum, text: idNumberBinding)
-            FieldView(title: Constants.Text.expiryDate, text: expiryDateBinding, isDateField: true)
+            FieldView(title: Constants.Text.name, text: $name)
+                .textContentType(.givenName)
+                .submitLabel(.continue)
+                .focused($focusedField, equals: .name)
+            FieldView(title: Constants.Text.surname, text: $surname)
+                .submitLabel(.continue)
+                .focused($focusedField, equals: .surname)
+            FieldView(title: Constants.Text.birthDate, text: $birthday)
+                .keyboardType(.numbersAndPunctuation)
+                .submitLabel(.continue)
+                .focused($focusedField, equals: .birthDate)
+            FieldView(title: Constants.Text.citizenship, text: $citizenship)
+                .submitLabel(.continue)
+                .focused($focusedField, equals: .citizenship)
+            FieldView(title: Constants.Text.idNum, text: $idNumber)
+                .keyboardType(.default)
+                .submitLabel(.continue)
+                .focused($focusedField, equals: .idNumber)
+            FieldView(title: Constants.Text.expiryDate, text: $expiryDate)
+                .keyboardType(.numbersAndPunctuation)
+                .submitLabel(.done)
+                .focused($focusedField, equals: .expiryDate)
+        }
+        .onSubmit {
+            switch focusedField {
+            case .name:
+                focusedField = .surname
+            case .surname:
+                focusedField = .birthDate
+            case .birthDate:
+                focusedField = .citizenship
+            case .citizenship:
+                focusedField = .idNumber
+            case .idNumber:
+                focusedField = .expiryDate
+            case .expiryDate:
+                focusedField = nil
+            default:
+                print("done")
+            }
+
         }
         .padding(.all, 16)
         .background(Color.white)
         .cornerRadius(12)
     }
+}
+
+extension TouristInfoView {
+    enum Field: String {
+        case name, surname, birthDate, citizenship, idNumber, expiryDate
+    }
+    private func focusNextField() {
+            switch focusedField {
+            case .name:
+                focusedField = .surname
+            case .surname:
+                focusedField = .birthDate
+            case .birthDate:
+                focusedField = .citizenship
+            case .citizenship:
+                focusedField = .idNumber
+            case .idNumber:
+                focusedField = .expiryDate
+            case .expiryDate:
+                focusedField = nil
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            default:
+                break
+            }
+        }
 }

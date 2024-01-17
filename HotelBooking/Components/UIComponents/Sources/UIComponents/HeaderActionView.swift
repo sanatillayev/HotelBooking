@@ -4,6 +4,8 @@ import SwiftUI
 private enum Constants {
     static let contentHeight: CGFloat = 51.0
     static let font = Font.system(size: 18.0, weight: .medium)
+    static let smallFont = Font.system(size: 16.0, weight: .medium)
+
     static let vOffset: CGFloat = 9.0
     
     enum Back{
@@ -35,10 +37,11 @@ public struct HeaderActionView: View {
         .frame(height: Constants.contentHeight, alignment: .center)
         .overlay(alignment: .center) {
             Text(title)
-                .font(Constants.font)
+                .font(title.count > 27 ? Constants.smallFont : Constants.font)
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity, alignment: .center)
-                .lineLimit(1)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
                 .padding(.horizontal, 48)
         }
         .background(Color.white)

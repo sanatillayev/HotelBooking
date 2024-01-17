@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Booking",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v17)],
     products: [.library(name: "Booking",targets: ["Booking"]),],
     dependencies: [
         .package(path: "Models"),

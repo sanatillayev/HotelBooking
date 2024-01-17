@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "MadePayment",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v17)],
     products: [.library(name: "MadePayment",targets: ["MadePayment"]),],
     dependencies: [
         .package(path: "Router"),

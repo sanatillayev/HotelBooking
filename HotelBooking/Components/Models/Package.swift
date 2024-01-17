@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Models",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v17)],
     products: [.library(name: "Models",targets: ["Models"]),],
     dependencies: [],
     targets: [
