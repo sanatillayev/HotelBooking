@@ -60,7 +60,7 @@ public struct FieldView<Trailing>: View where Trailing: View {
                 .padding(.horizontal, Constants.hOffset)
                 .padding(.bottom, isTapped ? Constants.textVPadding : 0 )
                 .frame(height: Constants.fieldHeight)
-                .background(isEmptyField ? Color.red.opacity(0.15) :
+                .background(isEmptyField ? Color.AppColors.clRed :
                                 Color.AppColors.clBackgroundPrimary)
                 .cornerRadius(Constants.cornerRadius)
 
@@ -98,7 +98,7 @@ public struct FieldView<Trailing>: View where Trailing: View {
                 .font(isTapped ? Constants.titleFont : Constants.fieldFont)
                 .offset(x: 0, y: isTapped ? -4 : 0)
                 .foregroundColor(isEmptyField ?
-                                 Color.red.opacity(0.5) :
+                                 Color.red.opacity(0.45) :
                                  Color.AppColors.clLabelTertiary)
         })
         .onSubmit {

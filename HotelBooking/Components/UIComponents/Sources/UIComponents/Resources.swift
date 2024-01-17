@@ -32,6 +32,8 @@ public extension Color {
 
         public static let clBackgroundPrimary = Color("clBackgroundPrimary")
         public static let clBackgroundSecondary = Color("clBackgroundSecondary")
+        public static let clRed = Color("clRed")
+
         
     }
 }
