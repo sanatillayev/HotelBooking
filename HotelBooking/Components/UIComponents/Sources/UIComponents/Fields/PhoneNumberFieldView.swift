@@ -134,7 +134,6 @@ public struct PhoneNumberFieldView<Trailing>: View where Trailing: View {
             }else if index == 9 {
                 formattedNumber += "-"
             }
-            
             if index < 11 {
                 formattedNumber.append(digit)
             } else {

@@ -373,8 +373,7 @@ extension BookingView {
     }
     private var buttonView: some View {
         ButtonView(title: "Оплатить \(formatPrice(viewModel.state.totalPrice)) ₽",
-                   showDivider: true, 
-                   isButtonDisabled: viewModel.state.isSuperButtonDisabled) {
+                   showDivider: true) {
             showMadePaymentView()
         }
         .disabled(viewModel.state.isSuperButtonDisabled)

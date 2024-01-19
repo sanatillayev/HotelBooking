@@ -111,6 +111,9 @@ final class BookingViewModel: ObservableObject {
             self.state.fifthTourist.idNumber = idNumber
         case .setFifthExpiryDate(let expiryDate):
             self.state.fifthTourist.expiryDate = expiryDate
+        case .checkValidation:
+            isValidPhoneNumber()
+            isValidEmail()
         }
     }
     
@@ -174,6 +177,47 @@ final class BookingViewModel: ObservableObject {
             state.tourists.append(nextTourist)
         }
     }
+    
+    // MARK: Validation of Fields
+    
+    private func isValidPhoneNumber() {
+        if state.phoneNumber.count == 18 {
+            state.isPhoneNumberValid = true
+        } else {
+            state.isPhoneNumberValid = false
+        }
+    }
+    
+    private func isValidEmail() {
+        if state.email.contains("@") && state.email.contains(".") {
+            state.isEmailValid = true
+        } else {
+            state.isEmailValid = false
+        }
+    }
+    
+    private func isNameValid(_ tourist: Tourist) -> Bool {
+        return !(tourist.name?.isEmpty ?? true)
+    }
+    private func isSurnameValid(_ tourist: Tourist) -> Bool {
+        return !(tourist.surname?.isEmpty ?? true)
+    }
+    private func isBirthDateValid(_ tourist: Tourist) -> Bool {
+        return !(tourist.birthday?.isEmpty ?? true)
+        // TODO: check date
+    }
+    
+    private func isCitizenshipValid(_ tourist: Tourist) -> Bool {
+        return !(tourist.citizenship?.isEmpty ?? true)
+    }
+    private func isIdNumberValid(_ tourist: Tourist) -> Bool {
+        return !(tourist.idNumber?.isEmpty ?? true)
+    }
+    
+    private func isExpiryDateValid(_ tourist: Tourist) -> Bool {
+        return !(tourist.idNumber?.isEmpty ?? true)
+        // TODO: check date
+    }
 }
 
 
@@ -217,6 +261,7 @@ extension BookingViewModel {
         case setFifthIdNumber(String)
         case setFifthExpiryDate(String)
         case findTotalPrice
+        case checkValidation
     }
 
     struct State {
@@ -241,5 +286,7 @@ extension BookingViewModel {
             (firstTourist.expiryDate?.isEmpty) ?? true ||
             /*phoneNumber.isEmpty ||*/ email.isEmpty
         }
+        var isPhoneNumberValid: Bool = true
+        var isEmailValid: Bool = true
     }
 }

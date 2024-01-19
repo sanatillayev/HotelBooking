@@ -12,6 +12,7 @@ import UIComponents
 private enum Constants {
     static let font = Font.system(size: 22, weight: .medium)
     static let size = CGSize(width: 32, height: 32)
+    static let red = Color.AppColors.clRed
     
     enum Text {
         static let name = "Имя"
@@ -78,7 +79,6 @@ public struct TouristInfoView: View {
     private var contentView: some View {
         VStack(alignment: .leading, spacing: 8) {
             FieldView(title: Constants.Text.name, text: $name)
-                .textContentType(.givenName)
                 .submitLabel(.continue)
                 .focused($focusedField, equals: .name)
             FieldView(title: Constants.Text.surname, text: $surname)
@@ -117,7 +117,6 @@ public struct TouristInfoView: View {
             default:
                 print("done")
             }
-
         }
         .padding(.all, 16)
         .background(Color.white)
