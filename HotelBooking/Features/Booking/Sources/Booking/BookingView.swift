@@ -67,6 +67,7 @@ public struct BookingView: View {
     @StateObject var viewModel: BookingViewModel
     @StateObject var router: BookingRouter
     
+    @State private var phoneNumber = PhoneNumberFormatterBinding()
     // MARK: - Routing
     
     func closeView() {
@@ -77,7 +78,7 @@ public struct BookingView: View {
         router.showMadePayment()
     }
     private var isButtonDisable: Bool {
-        viewModel.state.phoneNumber.isEmpty || viewModel.state.email.isEmpty
+        phoneNumber.text.isEmpty || viewModel.state.email.isEmpty
         // TODO: other properties
     }
     
@@ -92,6 +93,7 @@ public struct BookingView: View {
                 addTouristButtonView
                 totalPriceView
             }
+            .onTapGesture(perform: hideKeyboard)
         }
         .background(Constants.clBackground)
         .onAppear(perform: {
@@ -213,7 +215,7 @@ extension BookingView {
         VStack(alignment: .leading, spacing: 8) {
             Text("Информация о покупателе")
                 .font(Constants.MainInfo.fontName)
-            FieldView(title: "Hомер телефона", text: phoneNumberBinding)
+            FieldView(title: "Hомер телефона", text: $phoneNumber.text)
                 .keyboardType(.phonePad)
             FieldView(title: "Почта",
                       text: emailBinding,
@@ -382,13 +384,13 @@ extension BookingView {
 }
 
 extension BookingView {
-    private var phoneNumberBinding: Binding<String> {
-        Binding {
-            viewModel.state.phoneNumber
-        } set: { newValue in
-            viewModel.action.send(.setPhoneNumber(newValue))
-        }
-    }
+//    private var phoneNumberBinding: Binding<String> {
+//        Binding {
+//            viewModel.state.phoneNumber
+//        } set: { newValue in
+//            viewModel.action.send(.setPhoneNumber(newValue))
+//        }
+//    }
     private var emailBinding: Binding<String> {
         Binding {
             viewModel.state.email

@@ -40,16 +40,3 @@ public struct PhoneNumberFormatter {
             return formattedNumber
     }
 }
-
-struct ContentView: View {
-    var body: some View {
-        PhoneNumberTextField()
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .previewLayout(.sizeThatFits)
-    }
-}

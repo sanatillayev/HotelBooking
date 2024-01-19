@@ -8,6 +8,7 @@
 import SwiftUI
 import Models
 import Combine
+import UIComponents
 
 final class BookingViewModel: ObservableObject {
     
@@ -42,8 +43,8 @@ final class BookingViewModel: ObservableObject {
             fetchTourData()
         case .addFirstTourist:
             addfirstTourist()
-        case .setPhoneNumber(let newNumber):
-            self.state.phoneNumber = newNumber
+        case .setPhoneNumber(let newNumber): break
+//            self.state.phoneNumber = newNumber
         case .setEmail(let newEmail):
             self.state.email = newEmail
         case .findTotalPrice:
@@ -229,7 +230,7 @@ extension BookingViewModel {
         var fourthTourist = Tourist(name: "", surname: "", birthday: "", citizenship: "", idNumber: "", expiryDate: "")
         var fifthTourist = Tourist(name: "", surname: "", birthday: "", citizenship: "", idNumber: "", expiryDate: "")
         var touristBindings: [Int:Binding<Tourist>] = [:]
-        var phoneNumber: String = ""
+        var phoneNumber = PhoneNumberFormatterBinding()
         var email: String = ""
         var totalPrice: Int = 0
         var isSuperButtonDisabled: Bool{
@@ -239,7 +240,7 @@ extension BookingViewModel {
             (firstTourist.citizenship?.isEmpty) ?? true ||
             (firstTourist.idNumber?.isEmpty) ?? true ||
             (firstTourist.expiryDate?.isEmpty) ?? true ||
-            phoneNumber.isEmpty || email.isEmpty
+            /*phoneNumber.isEmpty ||*/ email.isEmpty
         }
     }
 }
