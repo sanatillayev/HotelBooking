@@ -43,8 +43,8 @@ final class BookingViewModel: ObservableObject {
             fetchTourData()
         case .addFirstTourist:
             addfirstTourist()
-        case .setPhoneNumber(let newNumber): break
-//            self.state.phoneNumber = newNumber
+        case .setPhoneNumber(let newNumber):
+            self.state.phoneNumber = newNumber
         case .setEmail(let newEmail):
             self.state.email = newEmail
         case .findTotalPrice:
@@ -111,7 +111,6 @@ final class BookingViewModel: ObservableObject {
             self.state.fifthTourist.idNumber = idNumber
         case .setFifthExpiryDate(let expiryDate):
             self.state.fifthTourist.expiryDate = expiryDate
-
         }
     }
     
@@ -230,7 +229,7 @@ extension BookingViewModel {
         var fourthTourist = Tourist(name: "", surname: "", birthday: "", citizenship: "", idNumber: "", expiryDate: "")
         var fifthTourist = Tourist(name: "", surname: "", birthday: "", citizenship: "", idNumber: "", expiryDate: "")
         var touristBindings: [Int:Binding<Tourist>] = [:]
-        var phoneNumber = PhoneNumberFormatterBinding()
+        var phoneNumber: String = "+7 "
         var email: String = ""
         var totalPrice: Int = 0
         var isSuperButtonDisabled: Bool{

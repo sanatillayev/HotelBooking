@@ -9,6 +9,7 @@ import SwiftUI
 import UIComponents
 import Router
 import Models
+import Combine
 
 private enum Constants {
     
@@ -67,7 +68,6 @@ public struct BookingView: View {
     @StateObject var viewModel: BookingViewModel
     @StateObject var router: BookingRouter
     
-    @State private var phoneNumber = PhoneNumberFormatterBinding()
     // MARK: - Routing
     
     func closeView() {
@@ -78,7 +78,7 @@ public struct BookingView: View {
         router.showMadePayment()
     }
     private var isButtonDisable: Bool {
-        phoneNumber.text.isEmpty || viewModel.state.email.isEmpty
+        viewModel.state.phoneNumber.isEmpty || viewModel.state.email.isEmpty
         // TODO: other properties
     }
     
@@ -215,8 +215,7 @@ extension BookingView {
         VStack(alignment: .leading, spacing: 8) {
             Text("Информация о покупателе")
                 .font(Constants.MainInfo.fontName)
-            FieldView(title: "Hомер телефона", text: $phoneNumber.text)
-                .keyboardType(.phonePad)
+            PhoneNumberFieldView(title: "Hомер телефона", text: phoneNumberBinding)
             FieldView(title: "Почта",
                       text: emailBinding,
                       caption: "Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту")
@@ -384,13 +383,14 @@ extension BookingView {
 }
 
 extension BookingView {
-//    private var phoneNumberBinding: Binding<String> {
-//        Binding {
-//            viewModel.state.phoneNumber
-//        } set: { newValue in
-//            viewModel.action.send(.setPhoneNumber(newValue))
-//        }
-//    }
+    private var phoneNumberBinding: Binding<String> {
+        Binding {
+            viewModel.state.phoneNumber
+        } set: { newValue in
+            viewModel.action.send(.setPhoneNumber(newValue))
+        }
+    }
+
     private var emailBinding: Binding<String> {
         Binding {
             viewModel.state.email

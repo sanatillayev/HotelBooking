@@ -107,6 +107,4 @@ public struct FieldView<Trailing>: View where Trailing: View {
             }
         }
     }
-    
-    
 }
